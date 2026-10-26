@@ -25,5 +25,5 @@ else
     echo "Host not reachable"
     status=1
 fi
-
+echo "Final exit code: $status"
 exit "$status"
