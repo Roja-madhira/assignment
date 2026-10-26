@@ -5,7 +5,7 @@
 echo "Hello, world!"
 
 CURRENT_DATE=$(date +"%a %b %d %H:%M:%S %Z %Y")
-echo "Today is: $CURRENT_DATE"
+
 echo "Today's date and time: $CURRENT_DATE"
 CURRENT_USER=$(whoami)
 echo "Running user is: $CURRENT_USER"
