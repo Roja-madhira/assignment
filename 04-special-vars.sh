@@ -1,6 +1,6 @@
 
 #!/bin/bash
-echo "Running as      : $(user)"
+echo "Running as      : $(whoami)"
 echo "Directory       : $(pwd)"
 echo "Home            : $HOME"
 echo "Script PID      : $$"
