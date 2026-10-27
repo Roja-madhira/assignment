@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-# 1. Validate the server name argument
+# Validate server name argument
 if [ $# -eq 0 ]; then
     echo "Error: Please provide a server name."
     echo "Usage: bash 12-system-info.sh <server-name>"
@@ -10,51 +10,41 @@ fi
 
 server_name=$1
 start_time=$(date +%s)
-start_date=$(date)
+start_date=$(date "+%Y-%m-%d %H:%M:%S")
 script_pid=$$
-
-# 2. Log everything to the log file
 log_file="/tmp/system-info.log"
-exec > >(tee -a "$log_file") 2>&1
 
-# 3. Define section function
-section() {
-    echo
-    echo "=========================================="
-    echo "$1"
-    echo "=========================================="
-}
+# Log output to terminal and file
+exec > >(tee "$log_file") 2>&1
 
-# 4. Print system information
-section "System Info Report - $server_name"
+# Main header
+echo "=========================================="
+echo "System Info Report - $server_name"
+echo "=========================================="
 
-section "Script Start Time and PID"
-echo "Start time : $start_date"
-echo "Script PID : $script_pid"
+# Collect system information
+echo "Script PID        : $script_pid"
+echo "Started at        : $start_date"
+echo "Server Label      : $server_name"
+echo "User              : $(whoami)"
+echo "Home Directory    : $HOME"
+echo "OS                : $(grep '^PRETTY_NAME=' /etc/os-release | cut -d '"' -f 2)"
 
-section "Server Label"
-echo "Server name: $server_name"
-
-section "Current User and Home Directory"
-echo "Current user: $(whoami)"
-echo "Home directory: $HOME"
-
-section "Operating System Information"
-cat /etc/os-release | grep PRETTY
-
-section "Disk Usage"
+echo
+echo "Disk Usage:"
 df -h /
 
-section "Memory Usage"
+echo
+echo "Memory Usage:"
 free -h
 
-section "System Uptime"
+echo
+echo "Uptime:"
 uptime
 
-# 5. Calculate and print total execution time
+# Calculate execution time
 end_time=$(date +%s)
 execution_time=$((end_time - start_time))
 
-section "Execution Summary"
-echo "Total script execution time: $execution_time seconds"
-echo "Log file: $log_file"
+echo "=========================================="
+echo "Script completed in $execution_time seconds"
