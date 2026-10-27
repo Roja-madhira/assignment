@@ -34,7 +34,7 @@ echo "OS                : $(grep '^PRETTY_NAME=' /etc/os-release | cut -d '"' -f
 echo "Disk usage        : $(df -h / | awk 'NR==2 {printf "%s used out of %s ", $3, $2, $5}')"
 
 
-echo "memory usage      : $(free -h  | awk 'NR==2 {printf "%sGB  used out of %sGB  ", $3, $2 }')"
+echo "memory usage      : $(free -g  | awk 'NR==2 {printf "%s  used out of %s ", $3, $2,$5 }')"
 
 #echo
 #echo "Uptime:"
