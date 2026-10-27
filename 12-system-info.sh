@@ -30,9 +30,10 @@ echo "User              : $(whoami)"
 echo "Home Directory    : $HOME"
 echo "OS                : $(grep '^PRETTY_NAME=' /etc/os-release | cut -d '"' -f 2)"
 
-echo
-echo "Disk Usage:"
-df -hT /
+#echo
+#echo "Disk Usage:"
+#df -hT /
+df -h / | awk 'NR==2 {printf "%s used out of %s \n", $3, $2, $5}'
 
 echo
 echo "Memory Usage:"
