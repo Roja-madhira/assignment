@@ -19,25 +19,17 @@ check_status() {
 
 # Function 3: Install a package
 install_package() {
-    package=$1
-
-    # Check if already installed
-    if rpm -q "$package" &>/dev/null; then
-        echo "$package is already installed"
-        return 0
-    fi
-
-    # Install the package
-    dnf install -y "$package" &>/dev/null
-    result=$?
-
-    # Report installation status
-    if [ "$result" -eq 0 ]; then
+   if rpm -q "$package" &>/dev/null; then
+    echo "$package is already installed"
+else
+    if dnf install -y "$package"; then
         check_status 0 "$package installed"
     else
         check_status 1 "$package installation failed"
     fi
-}
+fi
+
+}   
 
 print_header "Installing packages"
 
