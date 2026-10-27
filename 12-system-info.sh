@@ -38,7 +38,7 @@ echo "memory usage      : $(free -h  | awk 'NR==2 {printf "%s used out of %s ", 
 #echo
 #echo "Uptime:"
 #uptime
-echo "uptime            :  uptime | awk -F'up |, [0-9]+ user' '{print "Uptime: up " $2}' | sed 's/ days,/ days,/'
+echo "uptime            : $( uptime | awk -F'up |, [0-9]+ user' '{print "Uptime: up " $2}' | sed 's/ days,/ days,/')"
 
 # Calculate execution time
 end_time=$(date +%s)
