@@ -38,7 +38,7 @@ echo "Disk usage       : $(df -h / | awk 'NR==2 {printf "%s used out of %s ", $3
 #echo
 #echo "Memory Usage:"
 #free -h
-echo "memory usage       : $(free -h / | awk 'NR==2 {printf "%s used out of %s ", $3, $2, $5}')"
+echo "memory usage       : $(free -h  | awk 'NR==2 {printf "%s used out of %s ", $3, $2, $5}')"
 echo
 echo "Uptime:"
 uptime
