@@ -30,18 +30,15 @@ echo "User              : $(whoami)"
 echo "Home Directory    : $HOME"
 echo "OS                : $(grep '^PRETTY_NAME=' /etc/os-release | cut -d '"' -f 2)"
 
-#echo
-#echo "Disk Usage:"
-#df -hT /
-echo "Disk usage       : $(df -h / | awk 'NR==2 {printf "%s used out of %s ", $3, $2, $5}')"
 
+echo "Disk usage        : $(df -h / | awk 'NR==2 {printf "%s used out of %s ", $3, $2, $5}')"
+
+
+echo "memory usage      : $(free -h  | awk 'NR==2 {printf "%s used out of %s ", $3, $2, $5}')"
 #echo
-#echo "Memory Usage:"
-#free -h
-echo "memory usage       : $(free -h  | awk 'NR==2 {printf "%s used out of %s ", $3, $2, $5}')"
-echo
-echo "Uptime:"
-uptime
+#echo "Uptime:"
+#uptime
+echo "uptime            :  uptime | awk -F'up |, [0-9]+ user' '{print "Uptime: up " $2}' | sed 's/ days,/ days,/'
 
 # Calculate execution time
 end_time=$(date +%s)
