@@ -33,7 +33,7 @@ echo "OS                : $(grep '^PRETTY_NAME=' /etc/os-release | cut -d '"' -f
 #echo
 #echo "Disk Usage:"
 #df -hT /
-df -h / | awk 'NR==2 {printf "%s used out of %s \n", $3, $2, $5}'
+echo "disk usage : df -h / | awk 'NR==2 {printf "%s used out of %s \n", $3, $2, $5}'
 
 echo
 echo "Memory Usage:"
