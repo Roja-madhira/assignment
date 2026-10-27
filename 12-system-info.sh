@@ -32,7 +32,7 @@ echo "OS                : $(grep '^PRETTY_NAME=' /etc/os-release | cut -d '"' -f
 
 echo
 echo "Disk Usage:"
-df -h /
+df -hT /
 
 echo
 echo "Memory Usage:"
