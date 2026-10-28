@@ -11,35 +11,38 @@ fi
 server_name=$1
 start_time=$(date +%s)
 start_date=$(date "+%Y-%m-%d %H:%M:%S")
-script_pid=$$
 log_file="/tmp/system-info.log"
 
 # Log output to terminal and file
 exec > >(tee "$log_file") 2>&1
 
-# Main header
-echo "=========================================="
-echo "System Info Report - $server_name"
-echo "=========================================="
+# Define section function
+section() {
+    echo "=========================================="
+    echo "System Info Report - $server_name"
+    echo "=========================================="
+}
 
 # Collect system information
-echo "Script PID        : $script_pid"
+os=$(grep '^PRETTY_NAME=' /etc/os-release | cut -d '"' -f 2)
+
+disk_usage=$(df -h / | awk 'NR==2 {printf "%s used of %s", $3, $2}')
+
+memory_usage=$(free -h | awk '/^Mem:/ {printf "%s used of %s", $3, $2}')
+
+uptime=$(uptime -p)
+
+# Print system information
+section
+
+echo "Script PID        : $$"
 echo "Started at        : $start_date"
-echo "Server Label      : $server_name"
 echo "User              : $(whoami)"
 echo "Home Directory    : $HOME"
-echo "OS                : $(grep '^PRETTY_NAME=' /etc/os-release | cut -d '"' -f 2)"
-
-
-echo "Disk usage        : $(df -h / | awk 'NR==2 {printf  $3"used of " $2}')"
-
-
-echo "memory usage      : $(free -h  | awk 'NR==2 {printf "%s  used out of %s ", $3, $2,$5 }')"
-
-#echo
-#echo "Uptime:"
-#uptime
-echo "uptime            : $( uptime | awk -F'up |, [0-9]+ user' '{print "Uptime: up " $2}' | sed 's/ days,/ days,/')"
+echo "OS                : $os"
+echo "Disk (/)          : $disk_usage"
+echo "Memory            : $memory_usage"
+echo "Uptime            : $uptime"
 
 # Calculate execution time
 end_time=$(date +%s)
