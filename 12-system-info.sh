@@ -31,7 +31,7 @@ echo "Home Directory    : $HOME"
 echo "OS                : $(grep '^PRETTY_NAME=' /etc/os-release | cut -d '"' -f 2)"
 
 
-echo "Disk usage        : $(df -h / | awk 'NR==2 {printf "%s used out of %s ", $3, $2, $5}')"
+echo "Disk usage        : $(df -h / | awk 'NR==2 {printf  $3"used of " $2}')"
 
 
 echo "memory usage      : $(free -h  | awk 'NR==2 {printf "%s  used out of %s ", $3, $2,$5 }')"
