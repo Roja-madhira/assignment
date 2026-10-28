@@ -9,7 +9,7 @@ if [ $# -eq 0 ]; then
 fi
 
 server_name=$1
-#start_time=$(date +%s)
+start_time=$(date +%s)
 start_date=$(date "+%Y-%m-%d %H:%M:%S")
 log_file="/tmp/system-info.log"
 
@@ -45,8 +45,8 @@ echo "Memory            : $memory_usage"
 echo "Uptime            : $uptime"
 
 # Calculate execution time
-#end_time=$(date +%s)
-#execution_time=$((end_time - start_time))
+end_time=$(date +%s)
+execution_time=$((end_time - start_time))
 
 echo "=========================================="
-echo "Script completed in $SECONDS"
+echo "Script completed in $execution_time seconds"
